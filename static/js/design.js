@@ -1,4 +1,4 @@
-const revealTargets = document.querySelectorAll(".home-section, .project, .resume-section, .news-entry");
+const revealTargets = document.querySelectorAll(".home-section, .project, .resume-section, .news-entry, .publication-card, .publication-section");
 const backToTop = document.querySelector("#back-to-top");
 
 const updateBackToTop = () => {

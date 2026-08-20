@@ -3,6 +3,9 @@ const backToTop = document.querySelector("#back-to-top");
 
 const updateBackToTop = () => {
   backToTop.style.display = window.scrollY > 300 ? "block" : "none";
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+  document.documentElement.style.setProperty("--scroll-progress", `${Math.min(progress, 100)}%`);
 };
 
 window.addEventListener("scroll", updateBackToTop, { passive: true });

@@ -481,6 +481,78 @@ body {
 .site-footer { position: relative; min-height: 120px; align-items: center; }
 .site-footer::before { color: rgba(0,108,91,.16); font-family: var(--display); font-size: clamp(2.5rem,6vw,5.5rem); line-height: 1; content: "BIO / 2026"; }
 #back-to-top { color: var(--ink); background: var(--acid); border: 1px solid rgba(16,37,34,.18); }
+.has-companion #back-to-top { bottom: 9.3rem; }
+
+.binyu-companion {
+  position: fixed;
+  right: 1rem;
+  bottom: .55rem;
+  z-index: 45;
+  width: 126px;
+  height: 154px;
+  filter: drop-shadow(0 14px 18px rgba(16,37,34,.2));
+}
+.binyu-pet {
+  position: absolute;
+  right: 9px;
+  bottom: 0;
+  width: 96px;
+  height: 104px;
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: transform 180ms ease;
+}
+.binyu-pet:hover { transform: translateY(-5px) scale(1.03); }
+.binyu-pet:focus-visible { outline: 3px solid var(--coral); outline-offset: 2px; }
+.binyu-pet span {
+  display: block;
+  width: 96px;
+  height: 104px;
+  background-image: url("../picture/binyu-mini-spritesheet.webp");
+  background-repeat: no-repeat;
+  background-size: 768px 1144px;
+  image-rendering: auto;
+}
+.binyu-bubble {
+  position: absolute;
+  right: 14px;
+  bottom: 112px;
+  width: max-content;
+  max-width: min(260px,70vw);
+  padding: .7rem .85rem;
+  color: var(--bright);
+  background: var(--ink);
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: .75rem .75rem .18rem .75rem;
+  box-shadow: var(--shadow);
+  font-size: .78rem;
+  line-height: 1.45;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(7px) scale(.96);
+  transform-origin: right bottom;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+.binyu-bubble.is-visible { opacity: 1; transform: none; }
+.binyu-close,.binyu-reopen {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  color: var(--ink);
+  background: var(--acid);
+  border: 1px solid rgba(16,37,34,.18);
+  border-radius: 50%;
+  cursor: pointer;
+  font-family: var(--mono);
+}
+.binyu-close { top: 34px; right: 0; width: 25px; height: 25px; font-size: 1rem; }
+.binyu-reopen { right: 0; bottom: 0; display: none; width: 44px; height: 44px; font-size: .7rem; font-weight: 800; }
+.binyu-companion.is-hidden { width: 44px; height: 44px; }
+.binyu-companion.is-hidden .binyu-pet,.binyu-companion.is-hidden .binyu-close,.binyu-companion.is-hidden .binyu-bubble { display: none; }
+.binyu-companion.is-hidden .binyu-reopen { display: grid; }
 .reveal { transform: translateY(28px); transition: opacity 700ms ease, transform 700ms cubic-bezier(.2,.8,.2,1); }
 
 @media (max-width: 1100px) {
@@ -525,6 +597,13 @@ body {
   .skill-grid article,.skill-grid article:nth-child(2n),.skill-grid article:nth-last-child(-n+2) { border-right: 0; border-bottom: 1px solid var(--line); }
   .skill-grid article:last-child { border-bottom: 0; }
   .site-footer::before { content: "BIO / 26"; }
+  .binyu-companion { right: .35rem; transform: scale(.88); transform-origin: right bottom; }
+  .has-companion #back-to-top { bottom: 8.2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .binyu-pet,.binyu-bubble { transition: none; }
+  .binyu-pet:hover { transform: none; }
 }
 
 @media (max-width: 420px) {

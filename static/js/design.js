@@ -141,3 +141,4 @@ if (!reduceMotion) window.setInterval(() => {
   petButton.style.setProperty("--look-y", "0px");
   if (!companion.matches(":hover")) setSprite(0, frame);
 }, 900);
+window.applySiteLanguage?.();

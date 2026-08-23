@@ -301,6 +301,26 @@ body {
 .nav-links a { padding: .65rem 1rem; border-radius: 99px; }
 .nav-links a::after { display: none; }
 .nav-links a:hover,.nav-links a.active { color: var(--bright); background: var(--ink); }
+.language-toggle {
+  display: grid;
+  flex: 0 0 auto;
+  width: 2.65rem;
+  height: 2.65rem;
+  place-items: center;
+  color: var(--ink);
+  background: var(--acid);
+  border: 1px solid rgba(16,37,34,.2);
+  border-radius: 50%;
+  box-shadow: 4px 4px 0 rgba(0,108,91,.14);
+  font-family: var(--mono);
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  cursor: pointer;
+  transition: transform 160ms ease,box-shadow 160ms ease;
+}
+.language-toggle:hover { transform: translateY(-2px) rotate(-5deg); box-shadow: 6px 7px 0 rgba(0,108,91,.17); }
+.language-toggle:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
 
 .home-shell { grid-template-columns: 300px minmax(0,1fr); gap: clamp(3rem,6vw,6.5rem); padding-top: 4.5rem; }
 .profile-card {
@@ -637,6 +657,7 @@ body {
 @media (max-width: 600px) {
   body { background-size: 32px 32px, 32px 32px, auto, auto, auto; }
   .site-nav { padding-top: .7rem; }
+  .language-toggle { position: absolute; top: .65rem; right: 1rem; width: 2.35rem; height: 2.35rem; }
   .nav-links { gap: .15rem; width: 100%; overflow-x: auto; border-radius: .35rem; }
   .nav-links a { padding: .6rem .7rem; }
   .hero::before { right: -7rem; }

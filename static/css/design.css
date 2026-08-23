@@ -131,6 +131,9 @@ img { display: block; max-width: 100%; }
 .news-main-figure { max-width: 940px; margin: 2.5rem 0 0; }
 .news-main-figure img { width: 100%; background: var(--bright); border: 1px solid var(--line); border-radius: 1rem; box-shadow: var(--shadow); }
 .news-main-figure figcaption { margin-top: .8rem; color: var(--muted); font-family: var(--mono); font-size: .72rem; line-height: 1.55; }
+.certificate-figure { position: relative; max-width: 940px; aspect-ratio: 1.398/1; margin: 2.5rem 0 0; overflow: hidden; background: var(--bright); border: 1px solid var(--line); border-radius: 1rem; box-shadow: var(--shadow); }
+.certificate-figure img { position: absolute; top: 50%; left: 50%; width: auto; max-width: none; height: 140%; transform: translate(-50%,-50%) rotate(-90deg); }
+.certificate-figure figcaption { position: absolute; right: .75rem; bottom: .75rem; padding: .5rem .7rem; color: var(--bright); background: rgba(16,37,34,.9); border-radius: .25rem; font-family: var(--mono); font-size: .65rem; letter-spacing: .04em; }
 .publication-list { padding: 4.5rem 0 1rem; }
 .publication-card { display: grid; grid-template-columns: 150px minmax(0,1fr); gap: 3rem; padding: 2rem 0 3rem; border-bottom: 1px solid var(--line); }
 .publication-year { color: var(--coral); font-family: var(--mono); font-size: .78rem; letter-spacing: .08em; line-height: 1.5; text-transform: uppercase; }

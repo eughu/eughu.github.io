@@ -35,9 +35,15 @@ const companion = document.createElement("aside");
 companion.className = "binyu-companion";
 companion.setAttribute("aria-label", "Binyu Mini interactive companion");
 companion.innerHTML = `
-  <div class="binyu-bubble" role="status">Hi! 我是 Binyu Mini，带你逛逛我的研究 👋</div>
+  <div class="binyu-bubble" role="status">Hi! I'm Binyu Mini. Click me to meet the crew.</div>
   <button class="binyu-close" type="button" aria-label="Hide Binyu Mini">×</button>
   <button class="binyu-pet" type="button" aria-label="Interact with Binyu Mini"><span></span></button>
+  <button class="binyu-friends-trigger" type="button" aria-expanded="false">My Friends <span>↗</span></button>
+  <section class="binyu-friends" aria-label="Binyu's friends" aria-hidden="true">
+    <div class="friend-intro"><small>THE CREW</small><strong>Friends make research brighter.</strong></div>
+    <figure><img src="static/picture/friends/friend-curly.png" alt="Binyu's curly-haired friend with glasses"><figcaption>Friend 01 <span>The bright spark</span></figcaption></figure>
+    <figure><img src="static/picture/friends/friend-athletic.png" alt="Binyu's athletic friend"><figcaption>Friend 02 <span>The steady force</span></figcaption></figure>
+  </section>
   <button class="binyu-reopen" type="button" aria-label="Show Binyu Mini">BD</button>`;
 document.body.append(companion);
 document.body.classList.add("has-companion");
@@ -45,11 +51,14 @@ document.body.classList.add("has-companion");
 const petButton = companion.querySelector(".binyu-pet");
 const petSprite = petButton.querySelector("span");
 const bubble = companion.querySelector(".binyu-bubble");
+const friendsTrigger = companion.querySelector(".binyu-friends-trigger");
+const friendsPanel = companion.querySelector(".binyu-friends");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 let frame = 0;
 let actionTimer;
 let bubbleTimer;
 let tracking = false;
+let lastPointerAt = 0;
 
 const setSprite = (row, column) => {
   petSprite.style.backgroundPosition = `${column * -96}px ${row * -104}px`;
@@ -81,8 +90,18 @@ const play = (row, frames, speed = 150) => {
 };
 
 petButton.addEventListener("click", () => {
-  say(["很高兴认识你！", "一起探索合成生物学吧。", "点击页面里的研究项目看看？"][Math.floor(Math.random() * 3)]);
+  friendsTrigger.classList.add("is-visible");
+  say("Want to meet the people behind the good moments?");
   play(3, [0, 1, 2, 1, 0]);
+});
+
+friendsTrigger.addEventListener("click", () => {
+  const opening = !friendsPanel.classList.contains("is-visible");
+  friendsPanel.classList.toggle("is-visible", opening);
+  friendsPanel.setAttribute("aria-hidden", String(!opening));
+  friendsTrigger.setAttribute("aria-expanded", String(opening));
+  friendsTrigger.querySelector("span").textContent = opening ? "×" : "↗";
+  say(opening ? "Meet my friends!" : "Crew tucked away — for now.");
 });
 
 document.addEventListener("pointermove", (event) => {
@@ -91,13 +110,17 @@ document.addEventListener("pointermove", (event) => {
   const dx = event.clientX - (rect.left + rect.width / 2);
   const dy = event.clientY - (rect.top + rect.height * .32);
   if (Math.hypot(dx, dy) < 38) return setSprite(0, 0);
+  lastPointerAt = performance.now();
   const degrees = (Math.atan2(dx, -dy) * 180 / Math.PI + 360) % 360;
   const direction = Math.round(degrees / 22.5) % 16;
   setSprite(direction < 8 ? 9 : 10, direction < 8 ? direction : direction - 8);
+  petButton.style.setProperty("--look-x", `${Math.max(-5, Math.min(5, dx / 55))}px`);
+  petButton.style.setProperty("--look-y", `${Math.max(-4, Math.min(4, dy / 70))}px`);
 }, { passive: true });
 
 companion.querySelector(".binyu-close").addEventListener("click", () => {
   companion.classList.add("is-hidden");
+  friendsPanel.classList.remove("is-visible");
   document.body.classList.remove("has-companion");
 });
 
@@ -105,13 +128,16 @@ companion.querySelector(".binyu-reopen").addEventListener("click", () => {
   companion.classList.remove("is-hidden");
   document.body.classList.add("has-companion");
   tracking = true;
-  say("我回来啦！");
+  say("I'm back!");
 });
 
 setSprite(0, 0);
 window.setTimeout(() => { tracking = true; }, 900);
 if (!reduceMotion) window.setInterval(() => {
   if (!tracking || companion.classList.contains("is-hidden")) return;
+  if (performance.now() - lastPointerAt < 1500) return;
   frame = (frame + 1) % 6;
+  petButton.style.setProperty("--look-x", "0px");
+  petButton.style.setProperty("--look-y", "0px");
   if (!companion.matches(":hover")) setSprite(0, frame);
 }, 900);

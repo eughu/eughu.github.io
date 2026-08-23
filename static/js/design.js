@@ -41,8 +41,8 @@ companion.innerHTML = `
   <button class="binyu-friends-trigger" type="button" aria-expanded="false">My Friends <span>↗</span></button>
   <section class="binyu-friends" aria-label="Binyu's friends" aria-hidden="true">
     <div class="friend-intro"><small>THE CREW</small><strong>Friends make research brighter.</strong></div>
-    <figure><img src="static/picture/friends/friend-curly.png" alt="Binyu's curly-haired friend with glasses"><figcaption>Friend 01 <span>The bright spark</span></figcaption></figure>
-    <figure><img src="static/picture/friends/friend-athletic.png" alt="Binyu's athletic friend"><figcaption>Friend 02 <span>The steady force</span></figcaption></figure>
+    <figure><img src="static/picture/friends/friend-curly.png" alt="wmyx, Binyu's curly-haired friend with glasses"><figcaption>wmyx <span>The bright spark</span></figcaption></figure>
+    <figure><img src="static/picture/friends/friend-athletic.png" alt="sd, Binyu's athletic friend"><figcaption>sd <span>The steady force</span></figcaption></figure>
   </section>
   <button class="binyu-reopen" type="button" aria-label="Show Binyu Mini">BD</button>`;
 document.body.append(companion);
